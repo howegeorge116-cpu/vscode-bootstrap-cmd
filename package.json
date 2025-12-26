@@ -1,0 +1,26 @@
+{
+  "name": "vscode-bootstrap-cmd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/howegeorge116-cpu/vscode-bootstrap-cmd.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/howegeorge116-cpu/vscode-bootstrap-cmd/issues"
+  },
+  "homepage": "https://github.com/howegeorge116-cpu/vscode-bootstrap-cmd#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  }
+}
