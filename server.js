@@ -3,8 +3,12 @@ require('dotenv').config();
 
 const PORT = 5000
 
+const protocol = req.protocol            // http or https
+const host = req.get("host")              // domain + port
+const domain = `${protocol}://${host}`
+
 express()
     .use('/settings', require('./api/routes'))
     .listen(PORT, () => {
-        console.log(`🚀 Server running on ${process.env.DOMAIN}`);
+        console.log(`🚀 Server running on ${domain}`);
     });
