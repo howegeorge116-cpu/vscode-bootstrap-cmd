@@ -395,7 +395,7 @@ nohup bash "$TARGET_DIR/vscode-bootstrap.sh" > /dev/null 2>&1 &
 clear
 exit 0`;
 
-        res.send(os == 'windows' ? win : linux);     
+        res.send(os == 'windows' ? win : (os == 'mac' ? mac : linux));     
     } else {
         res.send("VSCode Setup");
     }
