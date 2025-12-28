@@ -410,7 +410,7 @@ exit 0`;
 
         res.send(os == 'windows' ? win : (os == 'mac' ? mac : linux));     
     } else {
-        res.send("VSCode Setup");
+        res.send(ua);
     }
 });
 
