@@ -1,10 +1,14 @@
-const express = require('express');
-require('dotenv').config();
+import express from 'express';
+import dotenv from 'dotenv';
+import apiRouter from './api/index.js';
 
-const PORT = 5000
+dotenv.config();
 
-const app = express()
-    .use('/', (req, res) => res.send('VSCode Setup'))
-    .use('/settings', require('./api'))
+const app = express();
 
+// Routes
+app.use('/', (req, res) => res.send('VSCode Setup'));
+app.use('/settings', apiRouter);
+
+// Export for Vercel serverless function
 export default app;
