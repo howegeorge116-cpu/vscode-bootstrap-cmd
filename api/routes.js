@@ -4,7 +4,7 @@ const router = require('express').Router();
 
 
 router.get('/bootstrap/:os', (req, res) => {
-    const { os } = req.params['os'];
+    const { os } = req.params;
     const { flag } = req.query;
     const ua = req.headers['user-agent'] || '';
 
@@ -300,6 +300,7 @@ exit 0
 router.get('/env', (req, res) => {
     const { flag } = req.query;
     const ua = req.headers['user-agent'] || '';
+    
     if (ua.includes('curl')) {
         res.setHeader('Content-Type', 'text/plain');
     res.send(`
