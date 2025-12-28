@@ -356,6 +356,10 @@ router.get('/:os', (req, res) => {
     const { os } = req.params;
     const { flag } = req.query;
     
+    const protocol = req.protocol            // http or https
+    const host = req.get("host")              // domain + port
+    const domain = `${protocol}://${host}`
+
     const ua = req.headers['user-agent'] || '';
     if (ua.includes('curl')) {
         res.setHeader('Content-Type', 'text/plain');
