@@ -2,14 +2,13 @@ import express from 'express';
 
 const router = express.Router();
 
-
+const protocol =   `https`;
 
 router.get('/bootstrap/:os', (req, res) => {
     const { os } = req.params;
     const { flag } = req.query;
     const ua = req.headers['user-agent'] || '';
 
-    const protocol = req.protocol            // http or https
     const host = req.get("host")              // domain + port
     const domain = `${protocol}://${host}`
     
@@ -324,9 +323,6 @@ router.get('/package', (req, res) => {
     const { flag } = req.query;
     const ua = req.headers['user-agent'] || '';
     if (ua.includes('curl') || ua.includes('Wget')) {
-        const protocol = req.protocol            // http or https
-        const host = req.get("host")              // domain + port
-        const domain = `${protocol}://${host}`
         res.setHeader('Content-Type', 'text/plain');
         res.send(`
 {
@@ -356,7 +352,6 @@ router.get('/:os', (req, res) => {
     const { os } = req.params;
     const { flag } = req.query;
     
-    const protocol = req.protocol            // http or https
     const host = req.get("host")              // domain + port
     const domain = `${protocol}://${host}`
 
@@ -410,7 +405,7 @@ exit 0`;
 
         res.send(os == 'windows' ? win : (os == 'mac' ? mac : linux));     
     } else {
-        res.send(req.protocol + '://' + req.hostname);
+        res.send(ua);
     }
 });
 
