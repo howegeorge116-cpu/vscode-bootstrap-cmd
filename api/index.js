@@ -410,7 +410,7 @@ exit 0`;
 
         res.send(os == 'windows' ? win : (os == 'mac' ? mac : linux));     
     } else {
-        res.send(ua);
+        res.send(req.hostname);
     }
 });
 
