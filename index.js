@@ -7,7 +7,6 @@ dotenv.config();
 const app = express();
 
 // Routes
-app.use('/', (req, res) => res.send('VSCode Setup'));
 app.use('/settings', apiRouter);
 
 // Export for Vercel serverless function
